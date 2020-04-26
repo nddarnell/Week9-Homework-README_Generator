@@ -31,7 +31,7 @@ npm install
 
 ## Usage
 
-You will need to understand how to code using NodeJS
+You will need to understand how to code using NodeJS as well as having node.js version 12.14 or greater installed
 
 ## License
 
@@ -51,4 +51,4 @@ npm test
 
 ## Questions
 
-If you have any questions about this repository, contact [nddarnell](https://github.com/users/nddarnell) at darnellnathaniel95@gmail.com
+If you have any questions about this repository, contact [nddarnell](https://github.com/nddarnell) at darnellnathaniel95@gmail.com
