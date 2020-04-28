@@ -1,7 +1,8 @@
 const fs = require("fs");
 const axios = require("axios");
 const inquirer = require("inquirer");
-const writeFileAsync = util.promisify(fs.writefile);
+const util = require("util");
+const writeFileAsync = util.promisify(fs.writeFile);
 
 function userPrompt(){
     //in md creation will need to call name property
@@ -51,14 +52,84 @@ function userPrompt(){
     },
     ])
 }
+
+
 //follow activity 40 for creating the md file after prompt. Can it be put after calling userPrompt or is it async?
 
 function genReadMe(results){
     return
-        ''
+        `
+        # ${results.project}
+        
+        
+        ## Description
+        
+        ${results.description}
+        
+        ## Table
+        
+        * [License](#license)
+
+        * [Installation](#installation)
+        
+        * [Testing](#testing)
+
+        * [Need To Know](#needtoknow)
+
+        * [Contributions](#contributions)
+        
+        * [Questions](#questions)
+        
+        ## License
+        
+        ${results.choices}
+
+        ## Installation
+        
+        To install necessary dependencies run the following command:
+        
+        ${results.installDependencies}
+        
+        ## Testing
+         
+        To run tests, run the following command:
+
+        ${results.testing}
+
+        ## Need to Know
+
+        ${results.needToKnow}
+
+        ## Contributions
+        
+        ${results.contributing}
+        
+        ## Questions
+
+        If you have any questions about this repository, contact [${results.username}](https://github.com/${results.username}) at darnellnathaniel95@gmail.com
+        `
 }
 
 userPrompt()
+    // .then(function({ username }) {
+    //     const url = `https://api.github.com/users/${username}/repos?per_page=100`;
+
+    //     axios.get(url).then(function(res) {
+    //       const repoNames = res.data.map(function(repo) {
+    //         return repo.name;
+    //       });
+
+    //       const repoNamesStr = repoNames.join("\n");
+
+    //       fs.writeFile("repos.txt", repoNamesStr, function(err) {
+    //         if (err) {
+    //           throw err;
+    //         }
+
+            
+    //       });
+    //     });
+    //   })
     .then((results)=> {
         const readME = genReadMe(results)
         //return used here to avoid callback hell if I remember correctly.

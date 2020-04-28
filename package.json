@@ -22,6 +22,7 @@
   "homepage": "https://github.com/nddarnell/Week9-Homework-README_Generator#readme",
   "dependencies": {
     "axios": "^0.19.2",
-    "inquirer": "^7.1.0"
+    "inquirer": "^7.1.0",
+    "util": "^0.12.2"
   }
 }
