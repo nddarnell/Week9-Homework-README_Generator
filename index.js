@@ -57,7 +57,7 @@ function userPrompt(){
 //follow activity 40 for creating the md file after prompt. Can it be put after calling userPrompt or is it async?
 
 function genReadMe(results){
-    return
+    return (
         `
         # ${results.project}
         
@@ -108,6 +108,7 @@ function genReadMe(results){
 
         If you have any questions about this repository, contact [${results.username}](https://github.com/${results.username}) at darnellnathaniel95@gmail.com
         `
+    )
 }
 
 userPrompt()
