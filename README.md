@@ -43,11 +43,7 @@ Nathan Darnell
 
 ## Testing
 
-To run tests, run the following command:
-
-```
-npm test
-```
+Testing not applicable on this project
 
 ## Questions
 
