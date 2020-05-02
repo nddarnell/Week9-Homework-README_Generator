@@ -9,7 +9,6 @@ function userPrompt() {
     return inquirer.prompt([{
         type: "input",
         name: "username",
-        //will also need to call github repo, does it also need to go into the .then function below? I think yes
         //api call needed to place image and username at bottom of readme output.
         message: "What is your github username?"
     },
@@ -50,6 +49,7 @@ function userPrompt() {
         name: "contributing",
         message: "What does the user need to know about contributing to this repository?"
     },
+        
     ])
 }
 
@@ -115,7 +115,31 @@ userPrompt()
     .then((results) => {
         //return used here to avoid callback hell if I remember correctly.
         //using name README2 for testing, change to README when done
-        const url = `https://api.github.com/users/${results.username}`
+        // const url = `https://api.github.com/users/${results.username}`
+        
+        // axios
+        //     .get(url)
+        //     .then(function (res){
+        //         //console logs email
+        //         console.log(res.data.email)
+        //         //console logs avatar
+        //         console.log(res.data.avatar_url)
+        //         //how to append??
+        //         let data = res.data.email
+        //         let img = res.data.avatar_url
+        //             //HELPPPP THIS DOESNT WORKK
+        //         fs.appendFile("README2.md", data)
+        //         fs.appendFile("README2.md", img)
+        //     })
+        
+        const readME = genReadMe(results)
+
+        writeFileAsync("README2.md", readME)
+
+        return results.username
+    })
+    .then(function(username){
+        const url = `https://api.github.com/users/${username}`
         
         axios
             .get(url)
@@ -126,16 +150,18 @@ userPrompt()
                 console.log(res.data.avatar_url)
                 //how to append??
                 let data = res.data.email
-                    //HELPPPP THIS DOESNT WORKKK
-                fs.appendFile("README2.md", readMe, data)
+                let img = res.data.avatar_url
+                    //HELPPPP THIS DOESNT WORKK
+                fs.appendFile("README2.md", `${data}\n` , (err) =>{
+                    if(err) throw err;
+                })
+                fs.appendFile("README2.md", `<img src="${img}">`, (err)=>{
+                    if(err) throw err;
+                })
             })
-        
-        const readME = genReadMe(results)
-
-        return writeFileAsync("README2.md", readME)
-
-
     })
+
+    
     .then(function () {
         //Not required but useful
         console.log("Succesfully written to README2.md")
