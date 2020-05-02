@@ -106,7 +106,6 @@ function genReadMe(results) {
         ## Questions
 
         If you have any questions about this repository, contact [${results.username}](https://github.com/${results.username}) at
-        Email:
     `
 }
 
@@ -115,7 +114,7 @@ userPrompt()
     .then((results) => {
         
         const readME = genReadMe(results)
-
+        // change file to whatever name you want
         writeFileAsync("README2.md", readME)
 
         return results.username
@@ -133,7 +132,6 @@ userPrompt()
                 //how to append??
                 let data = res.data.email
                 let img = res.data.avatar_url
-                    //HELPPPP THIS DOESNT WORKK
                 fs.appendFile("README2.md", `${data}\n` , (err) =>{
                     if(err) throw err;
                 })
