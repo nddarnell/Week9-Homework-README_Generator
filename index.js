@@ -106,31 +106,13 @@ function genReadMe(results) {
         ## Questions
 
         If you have any questions about this repository, contact [${results.username}](https://github.com/${results.username}) at
-        
+        Email:
     `
 }
 
 userPrompt()
 
     .then((results) => {
-        //return used here to avoid callback hell if I remember correctly.
-        //using name README2 for testing, change to README when done
-        // const url = `https://api.github.com/users/${results.username}`
-        
-        // axios
-        //     .get(url)
-        //     .then(function (res){
-        //         //console logs email
-        //         console.log(res.data.email)
-        //         //console logs avatar
-        //         console.log(res.data.avatar_url)
-        //         //how to append??
-        //         let data = res.data.email
-        //         let img = res.data.avatar_url
-        //             //HELPPPP THIS DOESNT WORKK
-        //         fs.appendFile("README2.md", data)
-        //         fs.appendFile("README2.md", img)
-        //     })
         
         const readME = genReadMe(results)
 
