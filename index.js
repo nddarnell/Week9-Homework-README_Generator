@@ -4,7 +4,7 @@ const inquirer = require("inquirer");
 const util = require("util");
 const writeFileAsync = util.promisify(fs.writeFile);
 
-function userPrompt(){
+function userPrompt() {
     //in md creation will need to call name property
     return inquirer.prompt([{
         type: "input",
@@ -56,7 +56,7 @@ function userPrompt(){
 
 //follow activity 40 for creating the md file after prompt. Can it be put after calling userPrompt or is it async?
 
-function genReadMe(results){
+function genReadMe(results) {
     return`
         # ${results.project}
         
@@ -105,44 +105,44 @@ function genReadMe(results){
         
         ## Questions
 
-        If you have any questions about this repository, contact [${results.username}](https://github.com/${results.username}) at darnellnathaniel95@gmail.com
+        If you have any questions about this repository, contact [${results.username}](https://github.com/${results.username}) at
+        
     `
 }
 
 userPrompt()
-    // .then(function({ username }) {
-    //     const url = `https://api.github.com/users/${username}/repos?per_page=100`;
 
-    //     axios.get(url).then(function(res) {
-    //       const repoNames = res.data.map(function(repo) {
-    //         return repo.name;
-    //       });
-
-    //       const repoNamesStr = repoNames.join("\n");
-
-    //       fs.writeFile("repos.txt", repoNamesStr, function(err) {
-    //         if (err) {
-    //           throw err;
-    //         }
-
-            
-    //       });
-    //     });
-    //   })
-    .then((results)=> {
-        const readME = genReadMe(results)
+    .then((results) => {
         //return used here to avoid callback hell if I remember correctly.
         //using name README2 for testing, change to README when done
-        return writeFileAsync("README2.md", readME);
+        const url = `https://api.github.com/users/${results.username}`
+        
+        axios
+            .get(url)
+            .then(function (res){
+                //console logs email
+                console.log(res.data.email)
+                //console logs avatar
+                console.log(res.data.avatar_url)
+                //how to append??
+                let data = res.data.email
+                    //HELPPPP THIS DOESNT WORKKK
+                fs.appendFile("README2.md", readMe, data)
+            })
+        
+        const readME = genReadMe(results)
+
+        return writeFileAsync("README2.md", readME)
+
 
     })
-    .then(function(){
+    .then(function () {
         //Not required but useful
         console.log("Succesfully written to README2.md")
     })
-    .catch((err)=>{
+    .catch((err) => {
         //IF statement might be redundant
-        if (err){
+        if (err) {
             console.log(err)
         }
     })
